@@ -780,3 +780,35 @@ To check if the frontend application was available directly at the root path via
 
 ### Context
 I tested this URL in my browser to confirm whether the form could be accessed without specifying `/frontend/`.
+
+
+# GIT WORKFLOW REFERENCE
+
+# 1. First-time setup (initialize repository)
+git init
+git branch -m main   # rename branch to main
+
+# Configure Git identity (only once per machine)
+git config --global user.name "Suleiman Bot"
+git config --global user.email "abdulsalamsuleiman100@gmail.com"
+
+# Add remote repository
+git remote add origin https://github.com/Suleiman-bot/DEVLOG.md.git
+
+# Stage file(s) and commit
+git add DEVLOG.md
+git commit -m "Add initial DEVLOG.md"
+
+# Push to GitHub
+git push -u origin main
+
+
+# 2. Everyday workflow (after edits)
+git status                  # check changes
+git add DEVLOG.md           # stage updated file(s)
+git commit -m "update DEVLOG.md with new entries"
+git push                    # push changes to GitHub
+
+
+# 3. Pull updates (if edited online or on another machine)
+git pull
