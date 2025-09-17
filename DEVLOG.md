@@ -885,5 +885,26 @@ git submodule update --remote --merge
  cd projects/ticketing-form
 git log --oneline  # Check the latest commit
 
+🔧 Fix steps
+#Check available branches
+#Make sure origin/main (or origin/master) exists.
+git fetch
+git branch -r
 
+
+#Manually set the branch to track (assuming main is correct):
+git checkout main
+git pull origin main
+
+
+#Tell Git which branch to track for this submodule
+cd ..
+git config -f .gitmodules submodule.projects/ticketing-form.branch main
+
+
+#Update again from the root repo
+git submodule update --remote --merge
+
+#from parent
+git subup
 
