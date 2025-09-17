@@ -822,5 +822,48 @@ cp -rv /home/user/folder1 /home/user/backup/
 #to copy wht does not exit already in destination folder
 cp -ru /home/user/folder1 /home/user/backup/
 
+#!/bin/bash
+
+# Step 1: Pull changes for the outer repository (main repo)
+echo "Pulling changes for the outer repository..."
+git pull
+
+# Step 2: Navigate to the submodule directory and pull its changes
+echo "Pulling changes for the submodule..."
+cd projects/ticketing-form  # Go into the submodule directory
+git pull  # Pull latest changes from the submodule
+cd ..  # Go back to the outer repository's root
+
+# Step 3: Check if the submodule reference has changed (i.e., it points to a new commit)
+echo "Checking if submodule reference has changed..."
+git status  # This will show if the submodule reference has changed
+
+# Step 4: If submodule reference has changed, commit the updated reference in the outer repository
+if git status | grep -q "modified:   projects/ticketing-form"; then
+    echo "Submodule reference has changed. Committing the update..."
+
+    # Stage the updated submodule reference
+    git add projects/ticketing-form
+
+    # Commit the change to the outer repo (submodule reference update)
+    git commit -m "Updated submodule reference to latest commit"
+
+    # Push changes to the outer repository
+    git push
+else
+    echo "No changes to submodule reference."
+fi
+
+# Step 5: Pushing changes from the outer repository (if there were any new commits)
+echo "Pushing changes from the outer repository..."
+git push
+
+# Optional: If you need to push changes from the submodule too (commit and push in submodule)
+echo "Pushing changes in the submodule..."
+cd projects/ticketing-form  # Go into submodule directory
+git add .  # Stage any changes in the submodule
+git commit -m "Your commit message for submodule"  # Commit changes in submodule
+git push  # Push changes in the submodule
+cd ..  # Go back to the outer repository's root
 
 
