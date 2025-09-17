@@ -866,4 +866,24 @@ git commit -m "Your commit message for submodule"  # Commit changes in submodule
 git push  # Push changes in the submodule
 cd ..  # Go back to the outer repository's root
 
+# Inside the submodule directory
+cd projects/ticketing-form
+git add .
+git commit -m "Made changes in the ticketing-form submodule"
+git push  # Push to the submodule's repository
+
+#inside the parent repo
+cd ..
+git add projects/ticketing-form  # Stage the updated submodule reference
+git commit -m "Updated submodule to latest commit"
+git push  # Push the updated submodule reference to the parent repo
+
+#update submodule after commit on git hub
+git submodule update --remote --merge
+
+ #check for updates in submodule
+ cd projects/ticketing-form
+git log --oneline  # Check the latest commit
+
+
 
