@@ -812,3 +812,15 @@ git push                    # push changes to GitHub
 
 # 3. Pull updates (if edited online or on another machine)
 git pull
+
+#to copy folder
+cp -r /home/user/folder1 /home/user/backup/
+
+#to copy folder verbose (showing files copied)
+cp -rv /home/user/folder1 /home/user/backup/
+
+#to copy wht does not exit already in destination folder
+cp -ru /home/user/folder1 /home/user/backup/
+
+
+
