@@ -908,3 +908,24 @@ git submodule update --remote --merge
 #from parent
 git subup
 
+
+# Go into the submodule folder
+cd projects/ticketing-form
+
+# Remove the nested repo metadata (don’t worry, it only removes repo metadata, not the files)
+rm -rf .git
+
+# Go back to root
+cd ../../
+
+# Remove the bad staged entry
+git rm --cached -r projects/ticketing-form
+
+# Stage it again, this time as normal files
+git add projects/ticketing-form
+
+# Commit
+git commit -m "Absorb ticketing-form code into main repo as normal files"
+
+git subup
+
