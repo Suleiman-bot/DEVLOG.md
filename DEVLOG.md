@@ -929,3 +929,34 @@ git commit -m "Absorb ticketing-form code into main repo as normal files"
 
 git subup
 
+
+
+#!/bin/bash
+# =====================================================
+# MongoDB 6.0 Installation Script for Ubuntu 22.04 (Jammy)
+# =====================================================
+
+# 1. Import MongoDB public GPG key (for verifying package signatures)
+curl -fsSL https://pgp.mongodb.com/server-6.0.asc | \
+    sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
+
+# 2. Add the MongoDB repository to apt sources list
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] \
+https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | \
+    sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+
+# 3. Update apt package list to include the new repo
+sudo apt update
+
+# 4. Install MongoDB (mongodb-org includes mongod, mongo, and tools)
+sudo apt install -y mongodb-org
+
+# 5. Start MongoDB service immediately
+sudo systemctl start mongod
+
+# 6. Enable MongoDB to start automatically at boot
+sudo systemctl enable mongod
+
+# 7. Check MongoDB service status (optional, press q to exit)
+systemctl status mongod
+
