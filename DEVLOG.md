@@ -958,5 +958,15 @@ sudo systemctl start mongod
 sudo systemctl enable mongod
 
 # 7. Check MongoDB service status (optional, press q to exit)
+
+
+mongosh mongodb://localhost:27017
+mongosh mongodb://192.168.0.3:27017
+show dbs
+use plane
+show collections
+db.tickets.find().pretty()
+
+
 systemctl status mongod
 
