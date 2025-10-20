@@ -319,6 +319,171 @@ sudo nano /etc/netplan/50-cloud-init.yaml
 # Open a custom or manually created Netplan configuration file
 sudo nano /etc/netplan/01-netcfg.yaml
 
+# List all PCI devices with numeric IDs — includes NICs, GPUs, RAID controllers, etc.
+lspci -nn
+
+# Show detailed information about all network interfaces — MAC address, speed, driver, etc.
+sudo lshw -class network
+
+#!/bin/bash
+
+# Attempt to check GNS3 server config (failed: command not found)
+gns3server --check-config
+# Output: bash: gns3server: command not found
+
+# Check which GNS3 packages are installed
+dpkg -l | grep gns3
+# Output example:
+# ii  gns3-iou  0.0.3~focal1  amd64  GNS3 support for IOU
+
+# Update package lists from repositories
+sudo apt update
+
+# Attempt to install GNS3 server, GUI, dynamips, qemu, kvm, utils
+sudo apt install gns3-server gns3-gui dynamips qemu qemu-kvm qemu-utils
+# Output: Error with qemu-kvm dependencies
+
+# Check gns3server version (not found)
+gns3server --version
+# Output: bash: gns3server: command not found
+
+# Navigate up one directory level
+cd ..
+
+# Change directory to root
+cd /
+
+# List root directory contents
+ls
+# Output: bin  dev  home  lib32  libx32  media  opt  root  sbin  swap.img  tmp  var  ...
+
+# Change to /opt directory
+cd opt
+
+# List /opt contents
+ls
+# Output: containerd  docker  gns3  lost+found  VBoxGuestAdditions-7.0.26
+
+# Change directory into /opt/gns3
+cd gns3
+
+# List contents of /opt/gns3
+ls
+# Output: images  projects
+
+# Attempt to list detailed contents (wrong command 'la' used)
+la
+# Output: la: command not found
+
+# Correctly list contents (shorter)
+ls
+# Output: images  projects
+
+# Check OS release information
+lsb_release -a
+# Output example:
+# Distributor ID: Ubuntu
+# Description:    Ubuntu 20.04.6 LTS
+# Release:        20.04
+# Codename:       focal
+
+# Check kernel version and system info
+uname -a
+# Output example:
+# Linux gns3vm 5.15.0-136-generic #147~20.04.1-Ubuntu SMP Wed Mar 19 16:13:14 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+
+# Check disk usage on root partition
+df -h /
+# Output example:
+# Filesystem      Size  Used Avail Use% Mounted on
+# /dev/sda2        20G  5.0G   14G  28% /
+
+# Navigate to Downloads directory
+cd ~/Downloads
+
+# List files in Downloads
+ls
+# Output example:
+# anydesk_6.2.1-1_amd64.deb  GNS3.VM.VirtualBox.2.2.54  zoom_amd64.deb  ...
+
+# Try to change directory to GNS3 VM folder (case sensitive error fixed)
+cd GNS3.VM.VirtualBox.2.2.54
+
+# List contents inside VM folder
+ls
+# Output:
+# 'GNS3 VM.ova'
+
+# Check if the .ova file was imported (implied by your text)
+
+# Use find to locate gns3server binary
+sudo find / -name gns3server 2>/dev/null
+# Output example:
+# /home/gns3/.venv/gns3server-venv/bin/gns3server
+# /home/gns3/.venv/gns3server-venv/lib/python3.9/site-packages/gns3server
+
+# Activate Python virtual environment containing gns3server
+source /home/gns3/.venv/gns3server-venv/bin/activate
+
+# Check gns3server version inside the virtualenv
+gns3server --version
+# Output:
+# 2.2.54
+
+# Try to list /opt/gns3/bin directory (does not exist)
+ls /opt/gns3/bin/
+# Output:
+# ls: cannot access '/opt/gns3/bin/': No such file or directory
+
+
+# Activate the GNS3 server Python virtual environment
+# Use: prepares environment so gns3server command is available
+source /home/gns3/.venv/gns3server-venv/bin/activate
+# Expected prompt changes to: (gns3server-venv) gns3@gns3vm:~$
+
+# Check GNS3 server version
+# Use: verify gns3server is accessible and see version installed
+gns3server --version
+# Expected output:
+# 2.2.54
+
+# Try to check GNS3 server configuration (incorrect flag used)
+# Use: attempt to verify configuration, but '--check-config' is invalid here
+gns3server --check-config
+# Expected output:
+# usage: gns3server [-h] [-v] [--host HOST] [--port PORT] [--ssl] ...
+# gns3server: error: unrecognized arguments: --check-config
+
+# Check if the GNS3 server config file exists and view Qemu section if any
+# Use: verify if Qemu section is configured in gns3_server.conf
+cat ~/.config/GNS3/gns3_server.conf | grep -A2 '\[Qemu\]'
+# Expected output if no Qemu section exists:
+# cat: /home/gns3/.config/GNS3/gns3_server.conf: No such file or directory
+# Or empty if file exists but no Qemu section
+
+# Check where qemu-system-x86_64 binary is installed
+# Use: verify QEMU is installed and available in PATH
+which qemu-system-x86_64
+# Expected output example:
+# /usr/bin/qemu-system-x86_64
+
+# Find exact location of gns3_server.conf (alternate location)
+# Use: locate actual config file if default path missing
+find /home/gns3/.config/GNS3 -name "gns3_server.conf" 2>/dev/null
+# Expected output:
+# /home/gns3/.config/GNS3/2.2/gns3_server.conf
+
+# View contents of gns3_server.conf (to check current config)
+# Use: inspect current config file (example shows no Qemu section)
+cat /home/gns3/.config/GNS3/2.2/gns3_server.conf
+# Expected output example:
+# [Server]
+# host = 0.0.0.0
+# port = 80
+# images_path = /opt/gns3/images
+# projects_path = /opt/gns3/projects
+# report_errors = True
+
 
 # ==========================================================
 # END OF DEVLOG
