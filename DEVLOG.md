@@ -301,6 +301,25 @@ use plane
 show collections
 db.tickets.find().pretty()
 
+# Show all network interfaces and their statuses
+ip link
+
+# List all Netplan configuration files
+ls /etc/netplan
+
+# Open the default network configuration file created during OS install
+sudo nano /etc/netplan/00-installer-config.yaml
+
+# Apply any changes made to Netplan configuration files
+sudo netplan apply
+
+# Open the cloud-init-generated network config (used in cloud/VM environments)
+sudo nano /etc/netplan/50-cloud-init.yaml
+
+# Open a custom or manually created Netplan configuration file
+sudo nano /etc/netplan/01-netcfg.yaml
+
+
 # ==========================================================
 # END OF DEVLOG
 # ==========================================================
