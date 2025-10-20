@@ -484,6 +484,8 @@ cat /home/gns3/.config/GNS3/2.2/gns3_server.conf
 # projects_path = /opt/gns3/projects
 # report_errors = True
 
+# Move to root from any user
+sudo -i
 
 # ==========================================================
 # END OF DEVLOG
